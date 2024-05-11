@@ -172,25 +172,22 @@ $('document').ready(function(){
 		
 		var i;
 
-		function msgLoop (i) {
-			$("p:nth-child("+i+")").fadeOut('slow').delay(800).promise().done(function(){
-			i=i+1;
-			$("p:nth-child("+i+")").fadeIn('slow').delay(25000);
-			if(i==50){
-				$("p:nth-child(49)").fadeOut('slow').promise().done(function () {
-					$('.cake').fadeIn('fast');
-				});
-				
-			}
-			else{
-				msgLoop(i);
-			}			
+		function msgLoop(i) {
+    $("p:nth-child(" + i + ")").fadeOut('slow').delay(800).promise().done(function () {
+        i = i + 1;
+        $("p:nth-child(" + i + ")").fadeIn('slow').delay(25000).promise().done(function () { // Added .promise() here
+            if (i == 50) {
+                $("p:nth-child(49)").fadeOut('slow').promise().done(function () {
+                    $('.cake').fadeIn('fast');
+                });
+            } else {
+                msgLoop(i);
+            }
+        });
+    });
+}
 
-		});
-			// body...
-		}
-		
-		msgLoop(0);
+msgLoop(0);
 		
 	});
 });
